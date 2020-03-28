@@ -116,8 +116,6 @@ mostliked_test, mostrt_test = most_liked_rt(data_sample)
 #data_sample_la = data_sample[is_la]
 #data_sample_la.max(level = 'nlikes')
 
-
-
 #num tweets by year
 #def numtweets_year(data):
 ##    yr_dict = {
@@ -148,7 +146,6 @@ mostliked_test, mostrt_test = most_liked_rt(data_sample)
 
 #numtweetbysource = tweetsbysource(test_df)
 
-
 #
 #range(len(data_sample))
 #data_sample.iloc[0][3]
@@ -159,11 +156,6 @@ mostliked_test, mostrt_test = most_liked_rt(data_sample)
 #data_sample.loc[19,'nlikes'] =2
 #data_sample.loc[19,'nlikes']
 #        
-
-#.day
-#.weekday()
-
-
 
 #get the tweets per year by account
     
