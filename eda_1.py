@@ -12,27 +12,18 @@ from datetime import date
 import datetime 
 import twint
 
+#update directories
 directory = 'C:\\Google NEU\DS5230 Unsupervised Machine Learning & Data Mining\\Project\\data\\Health_Tweets\\'
-
 data_sample = pd.read_csv('C:\\Users\\Insti\\Downloads\\tweets_df_sample.csv')
 
 # Create labels for news sources
-sources = ['BBC', 'CBC', 'CNN', 'EveryDay', 'FoxNews', 'GDN', 'GoodHealth', 'Kaiser',
-           'LATimes', 'MSN', 'NBC,', 'NPR', 'NYTimes', 'Reuters', 'USNews', 'WSJ']
-# Load in all text files to data frame
+user_handle_list=['bbchealth', 'cnnhealth', 'everydayHealth', 'foxnewshealth',
+                   'gdnhealth', 'goodhealth', 'khnews', 'latimeshealth',
+                   'nbcnewshealth', 'nprhealth', 'nythealth', 'reuters_health',
+                   'usnewshealth', 'wsjhealth', 'timehealth', 'harvardhealth']
 
-
-idx = 0
-datasourcelist = []
-for file in os.listdir(directory):
-    df = pd.read_csv(directory+file, sep='|', header=None, error_bad_lines=False, engine='python')
-    df['label'] = sources[idx]
-    idx += 1
-    datasourcelist.append(df)
-    df.to_csv(file, header=None, sep='|', index=None)   # write out each file with labels to new txt file
-    
 #scrape:
-    
+
 #user_handle_list=['latimeshealth']
 #for username in user_handle_list:
 #    # filename = username+"_df"
@@ -47,26 +38,28 @@ for file in os.listdir(directory):
 #    twint.run.Search(c)
 #Tweets_df = twint.storage.panda.Tweets_df
 
-#get the tweets per year
-    
-#def getdates(datasources): 
-#    for i in range(len(datasources)):
-#        for j in range(len(datasources)):
-#            date = datasources[i][1][j]
-#            #print (date)
+#old#
+#idx = 0
+#datasourcelist = []
+#for file in os.listdir(directory):
+#    df = pd.read_csv(directory+file, sep='|', header=None, error_bad_lines=False, engine='python')
+#    df['label'] = sources[idx]
+#    idx += 1
+#    datasourcelist.append(df)
+#    df.to_csv(file, header=None, sep='|', index=None)   # write out each file with labels to new txt file
+#    
+
 
 data_time_obj = '2020-03-28 15:47:32'
 data_time_obj = datetime.datetime.strptime(data_time_obj, '%Y-%m-%d %H:%M:%S')
 print(data_time_obj.weekday())
 
-range(len(data))
-
 #.weekday()
 #.day
 
-#adjust df to 
+#get number of tweets by year and by source
 def tweetsby(data):
-    #add year columns
+    #add year column
     data['Year'] = 0
 #    data['2014']=0
 #    data['2015']=0
@@ -91,6 +84,7 @@ def tweetsby(data):
             data.loc[i,'Year'] = 2019
         else:
             data.loc[i,'Year'] = 2020
+    #tweets by year
     tweetbyyear_df = data_sample.groupby(['Year']).size().reset_index(name='counts')
     #tweets by source
     tweetbysource_df = data_sample.groupby(['username']).size().reset_index(name='counts')
@@ -98,12 +92,7 @@ def tweetsby(data):
 
 test_df1, test_df2 = tweetsby(data_sample)
 
-#most liked tweet
-
-user_handle_list=['bbchealth', 'cnnhealth', 'everydayHealth', 'foxnewshealth',
-                   'gdnhealth', 'goodhealth', 'khnews', 'latimeshealth',
-                   'nbcnewshealth', 'nprhealth', 'nythealth', 'reuters_health',
-                   'usnewshealth', 'wsjhealth', 'timehealth', 'harvardhealth']
+#most liked tweet and most retweeted
 
 def most_liked_rt(data):
     #most liked
@@ -115,6 +104,9 @@ def most_liked_rt(data):
     return ml_df, mr_df
 
 mostliked_test, mostrt_test = most_liked_rt(data_sample)
+
+
+######################old code -- save for now  ###############
 #    for source in sourcelist:
 #        filter_source = df['username'] == source #filter for a specific source
 #        tmp_df = data[filter_source]
