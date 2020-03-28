@@ -85,9 +85,9 @@ def tweetsby(data):
         else:
             data.loc[i,'Year'] = 2020
     #tweets by year
-    tweetbyyear_df = data_sample.groupby(['Year']).size().reset_index(name='counts')
+    tweetbyyear_df = data.groupby(['Year']).size().reset_index(name='counts')
     #tweets by source
-    tweetbysource_df = data_sample.groupby(['username']).size().reset_index(name='counts')
+    tweetbysource_df = data.groupby(['username']).size().reset_index(name='counts')
     return tweetbyyear_df, tweetbysource_df
 
 test_df1, test_df2 = tweetsby(data_sample)
