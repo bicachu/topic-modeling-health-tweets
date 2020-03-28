@@ -1,0 +1,8 @@
+.DS_Store
+venv/
+.idea/
+.ipynb_checkpoints/
+__pycache__/
+input/
+output/
+requirements.txt
