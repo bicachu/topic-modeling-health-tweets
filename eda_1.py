@@ -69,7 +69,7 @@ def tweetsby(data):
 #    data['2019']=0
 #    data['2020']=0
     for i in range(len(data)):
-        date_tmp = datetime.datetime.strptime(data.iloc[i][3], '%Y-%m-%d %H:%M:%S')
+        date_tmp = datetime.datetime.strptime(data.iloc[i][1], '%Y-%m-%d %H:%M:%S')
         if date_tmp.year == 2014:
             data.loc[i,'Year'] = 2014
         elif date_tmp.year == 2015:
@@ -90,7 +90,7 @@ def tweetsby(data):
     tweetbysource_df = data.groupby(['username']).size().reset_index(name='counts')
     return tweetbyyear_df, tweetbysource_df
 
-test_df1, test_df2 = tweetsby(data_sample)
+test_df1, test_df2 = tweetsby(tweets_df)
 
 #most liked tweet and most retweeted
 
@@ -103,8 +103,7 @@ def most_liked_rt(data):
     mr_df = data[mr_tmp_df]
     return ml_df, mr_df
 
-mostliked_test, mostrt_test = most_liked_rt(data_sample)
-
+mostliked_test, mostrt_test = most_liked_rt(tweets_df)
 
 ######################old code -- save for now  ###############
 #    for source in sourcelist:
