@@ -92,6 +92,8 @@ def tweetsby(data):
 
 test_df1, test_df2 = tweetsby(tweets_df)
 
+data_sample.iloc[0]['Year']
+
 #most liked tweet and most retweeted
 
 def most_liked_rt(data):
