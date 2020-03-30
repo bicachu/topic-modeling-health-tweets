@@ -22,6 +22,6 @@ tweets_df = tweets_df.drop(columns=['conversation_id', 'created_at', 'cashtags',
 tweets_df.drop_duplicates(keep=False, inplace=True, subset="tweet")
 
 # Export preprocessed clean data set to csv
-tweets_df.to_csv(r'health_tweets.csv', index=False, header=True)
+tweets_df.to_csv(r'input/health_tweets.csv', index=False, header=True)
 
 
