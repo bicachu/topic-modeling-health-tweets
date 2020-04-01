@@ -72,7 +72,7 @@ def clean_tweet(tweet, bigrams=False):
 
 def tokenize_tweets(data_path):
     """Main function to read in and return clean data set.
-    This can be used in Jupyter notebooks by importing this module and calling the main() function
+    This can be used in Jupyter notebooks by importing this module and calling the tokenize_tweets() function
 
     Args:
         data_path = path to input data set .csv file
