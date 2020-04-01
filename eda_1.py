@@ -11,14 +11,15 @@ import pandas as pd
 from datetime import date
 import datetime 
 import twint
+import matplotlib.pyplot as plt
 
 #update directories
 directory = 'C:\\Google NEU\DS5230 Unsupervised Machine Learning & Data Mining\\Project\\data\\Health_Tweets\\'
-data_sample = pd.read_csv('C:\\Users\\Insti\\Downloads\\tweets_df_sample.csv')
+tweets = pd.read_csv('C:\\Users\\Insti\\Desktop\\input\\health_tweets.csv')
 
 # Create labels for news sources
-user_handle_list=['bbchealth', 'cnnhealth', 'everydayHealth', 'foxnewshealth',
-                   'gdnhealth', 'goodhealth', 'khnews', 'latimeshealth',
+user_handle_list=['bbchealth', 'cnnhealth', 'foxnewshealth',
+                   'gdnhealth', 'khnews', 'latimeshealth',
                    'nbcnewshealth', 'nprhealth', 'nythealth', 'reuters_health',
                    'usnewshealth', 'wsjhealth', 'timehealth', 'harvardhealth']
 
@@ -48,7 +49,6 @@ user_handle_list=['bbchealth', 'cnnhealth', 'everydayHealth', 'foxnewshealth',
 #    datasourcelist.append(df)
 #    df.to_csv(file, header=None, sep='|', index=None)   # write out each file with labels to new txt file
 #    
-
 
 data_time_obj = '2020-03-28 15:47:32'
 data_time_obj = datetime.datetime.strptime(data_time_obj, '%Y-%m-%d %H:%M:%S')
@@ -90,9 +90,9 @@ def tweetsby(data):
     tweetbysource_df = data.groupby(['username']).size().reset_index(name='counts')
     return tweetbyyear_df, tweetbysource_df
 
-test_df1, test_df2 = tweetsby(tweets_df)
+tweets_yr, tweets_source = tweetsby(tweets)
 
-data_sample.iloc[0]['Year']
+tweets.iloc[0]['Year']
 
 #most liked tweet and most retweeted
 
@@ -105,8 +105,23 @@ def most_liked_rt(data):
     mr_df = data[mr_tmp_df]
     return ml_df, mr_df
 
-mostliked_test, mostrt_test = most_liked_rt(tweets_df)
+mostliked_test, mostrt_test = most_liked_rt(tweets)
 
+#Plot Tweets by Year
+
+#tweets_yr_plot = tweets_source.sort_values(by = ['counts'], ascending = False)
+
+fig = plt.figure()
+fig.set_figwidth(15)
+plt.bar(tweets_yr['Year'], tweets_yr['counts'])
+
+#Plot Tweets by Source
+tweets_source_plot = tweets_source.sort_values(by = ['counts'], ascending = False)
+
+
+fig = plt.figure()
+fig.set_figwidth(25)
+plt.bar(tweets_source_plot['username'], tweets_source_plot['counts'])
 ######################old code -- save for now  ###############
 #    for source in sourcelist:
 #        filter_source = df['username'] == source #filter for a specific source
