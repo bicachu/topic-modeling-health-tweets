@@ -25,17 +25,21 @@ punctuation = '!"$%&\'()*+,-./:;<=>?[\\]^_`{|}~•@'         # define a string o
 def remove_links(tweet):
     """Takes a string and removes web links from it"""
     tweet = re.sub(r'http\S+', '', tweet)   # remove http links
-    tweet = re.sub(r'bit.ly/\S+', '', tweet) # remove bitly links
+    tweet = re.sub(r'bit.ly/\S+', '', tweet)  # remove bitly links
     tweet = tweet.strip('[link]')   # remove [links]
     tweet = re.sub(r'pic.twitter\S+','', tweet)
     return tweet
 
 def remove_users(tweet):
-    """Takes a string and removes retween and @user information"""
-    tweet = re.sub('(RT\s@[A-Za-z]+[A-Za-z0-9-_]+)', '', tweet) # remove retweet
-    tweet = re.sub('(@[A-Za-z]+[A-Za-z0-9-_]+)', '', tweet) # remove tweeted at
+    """Takes a string and removes retweet and @user information"""
+    tweet = re.sub('(RT\s@[A-Za-z]+[A-Za-z0-9-_]+)', '', tweet)  # remove re-tweet
+    tweet = re.sub('(@[A-Za-z]+[A-Za-z0-9-_]+)', '', tweet)  # remove tweeted at
     return tweet
 
+def remove_hashtags(tweet):
+    """Takes a string and removes any hash tags"""
+    tweet = re.sub('(#[A-Za-z]+[A-Za-z0-9-_]+)', '', tweet)  # remove hash tags
+    return tweet
 
 def lemmatize(tweet):
     """Returns tokenized representation of words in lemma form excluding stopwords"""
@@ -56,6 +60,7 @@ def clean_tweet(tweet, bigrams=False):
     """Main master function to clean tweets, stripping noisy characters and tokenizing use lemmatization"""
     tweet = remove_users(tweet)
     tweet = remove_links(tweet)
+    tweet = remove_hashtags(tweet)
     tweet = tweet.lower()  # lower case
     tweet = re.sub('[' + punctuation + ']+', ' ', tweet)  # strip punctuation
     tweet = re.sub('\s+', ' ', tweet)  # remove double spacing
