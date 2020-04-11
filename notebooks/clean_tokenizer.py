@@ -41,6 +41,12 @@ def remove_hashtags(tweet):
     tweet = re.sub('(#[A-Za-z]+[A-Za-z0-9-_]+)', '', tweet)  # remove hash tags
     return tweet
 
+def remove_av(tweet):
+    """Takes a string and removes retweet and @user information"""
+    tweet = re.sub('VIDEO:', '', tweet)  # remove 'VIDEO:' from start of tweet
+    tweet = re.sub('AUDIO:', '', tweet)  # remove 'AUDIO' from start of tweet
+    return tweet
+
 def lemmatize(tweet):
     """Returns tokenized representation of words in lemma form excluding stopwords"""
     result = []
