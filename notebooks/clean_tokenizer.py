@@ -42,9 +42,9 @@ def remove_hashtags(tweet):
     return tweet
 
 def remove_av(tweet):
-    """Takes a string and removes retweet and @user information"""
+    """Takes a string and removes AUDIO/VIDEO tags or labels"""
     tweet = re.sub('VIDEO:', '', tweet)  # remove 'VIDEO:' from start of tweet
-    tweet = re.sub('AUDIO:', '', tweet)  # remove 'AUDIO' from start of tweet
+    tweet = re.sub('AUDIO:', '', tweet)  # remove 'AUDIO:' from start of tweet
     return tweet
 
 def lemmatize(tweet):
@@ -67,6 +67,7 @@ def clean_tweet(tweet, bigrams=False):
     tweet = remove_users(tweet)
     tweet = remove_links(tweet)
     tweet = remove_hashtags(tweet)
+    tweet = remove_av(tweet)
     tweet = tweet.lower()  # lower case
     tweet = re.sub('[' + punctuation + ']+', ' ', tweet)  # strip punctuation
     tweet = re.sub('\s+', ' ', tweet)  # remove double spacing
