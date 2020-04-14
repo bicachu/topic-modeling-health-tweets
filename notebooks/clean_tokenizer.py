@@ -94,7 +94,7 @@ def tokenize_tweets(data_path):
     """
 
     tweets_df = pd.read_csv(data_path)
-    tweets_df['clean_tweets'] = tweets_df.tweet.apply(clean_tweet)
+    tweets_df['clean_tweet'] = tweets_df.tweet.apply(clean_tweet)
     num_tweets = len(tweets_df)
     print('Complete. Number of Tweets that have been cleaned and tokenized : {}'.format(num_tweets))
     return tweets_df
