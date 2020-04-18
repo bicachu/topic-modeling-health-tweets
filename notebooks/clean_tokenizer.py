@@ -82,6 +82,20 @@ def clean_tweet(tweet, bigrams=False):
     return tweet
 
 
+def basic_clean(tweet):
+    """Main master function to clean tweets only without tokenization or removal of stopwords"""
+    tweet = remove_users(tweet)
+    tweet = remove_links(tweet)
+    tweet = remove_hashtags(tweet)
+    tweet = remove_av(tweet)
+    tweet = tweet.lower()  # lower case
+    tweet = re.sub('[' + punctuation + ']+', ' ', tweet)  # strip punctuation
+    tweet = re.sub('\s+', ' ', tweet)  # remove double spacing
+    tweet = re.sub('([0-9]+)', '', tweet)  # remove numbers
+    tweet = re.sub('📝 …', '', tweet)
+    return tweet
+
+
 def tokenize_tweets(data_path):
     """Main function to read in and return clean data set.
     This can be used in Jupyter notebooks by importing this module and calling the tokenize_tweets() function
