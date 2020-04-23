@@ -1,2 +1,1 @@
-# UMLHealthTwitter
-DS5230 Health Twitter Project
+Exploring Health-Related Tweets
