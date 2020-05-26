@@ -9,22 +9,22 @@ import plotly.graph_objects as go
 from dash.dependencies import Input, Output, State
 
 # Define styles and local images
-external_stylesheets = ['assets/style.css']
-img_logo = 'twitter_logo_blk.png'
-git_logo = 'github_logo.png'
+external_stylesheets = ['dashboard/assets/style.css']
+img_logo = 'dashboard/img/twitter_logo_blk.png'
+git_logo = 'dashboard/img/github_logo.png'
 encoded_image_twt = base64.b64encode(open(img_logo, 'rb').read())
 encoded_image_git = base64.b64encode(open(git_logo, 'rb').read())
 # Initialize the app
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 # Load data using number of topics as indices
-df = pd.read_pickle(r'data/sttm_all_topics.pkl')  # index_col=0, parse_dates=True)
+df = pd.read_pickle(r'dashboard/data/sttm_all_topics.pkl')
 
 # Load data for words in each topic and corresponding scores
-topic_words_df = pd.read_pickle(r'data\topic_words.pkl')
+topic_words_df = pd.read_pickle(r'dashboard/data/topic_words.pkl')
 
 # Load data for topic name descriptions
-topic_names_df = pd.read_pickle(r'data\topic_names.pkl')
+topic_names_df = pd.read_pickle(r'dashboard/data/topic_names.pkl')
 
 # Convert date to datetime
 df['date'] = pd.to_datetime(df['date'], errors='coerce')
