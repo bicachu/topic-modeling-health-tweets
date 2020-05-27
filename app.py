@@ -16,6 +16,7 @@ encoded_image_twt = base64.b64encode(open(img_logo, 'rb').read())
 encoded_image_git = base64.b64encode(open(git_logo, 'rb').read())
 # Initialize the app
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+server = app.server
 
 # Load data using number of topics as indices
 df = pd.read_pickle(r'dashboard/data/sttm_all_topics.pkl')
