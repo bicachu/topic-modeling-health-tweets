@@ -1,8 +1,12 @@
 # Health Tweets Exploration Using Topic Modeling & Sentiment Analysis
 
 This project explores health-related tweets using machine learning techniques such as topic modeling, clustering, and sentiment analysis. It covers tweets scraped from January 1, 2014 - March 28, 2020 from 14 various health-specific news twitter accounts (i.e @cnnhealth, @foxnewshealth, @harvardhealth, etc). The project was completed in Python and there and an interactive dashboard was created using a Dash - Python framework developed by [Plotly](https://plot.ly/dash). 
-* The dashboard was deployed on Heroku here https://health-tweets-topics.herokuapp.com/
-![](sttm_dashboard_demo.gif)
+* The dashboard was deployed on Heroku here: https://health-tweets-topics.herokuapp.com/
+
+## Using the demo
+To get started, choose the preset number of topics you would like to explore to refresh the dashboard's current model results. Then, you can start interacting with each topic words distribution in the bubble chart as well as the distribution of those topics across news sources and years with the heatmap.
+
+![demo](img/sttm_dashboard_demo.gif)
 
 ## Data Overview
 ### Data Scraping & Cleaning
@@ -47,13 +51,15 @@ Sentiment Analysis was performed using NLP modules from [TextBlob](https://textb
 **Dashboard**
 - `app.py` fully defines the Python Dash application with any front-end CSS styling located in the `assets` directory
 - Data needed for the dashboard is stored in `data` directory and requirements for the app in `requirements.txt`
-- `Profile` is needed for Heroku deployment. It instructs the linux containerized environment on how to start the app.
+- `Procfile` is needed for Heroku deployment. It instructs the linux containerized environment on how to start the app.
 - `merge_sttm_results.py`is script used to merge multiple model results into one dataset for use in dashboard interactions
 
 **Models & Analysis**
 - All topic models, sentiment analysis, and EDA is located in Jupyter notebooks in the `notebooks` directory
+- `pyLDAvis` directory holds all the gensim model visualization results in corresponding HTML files. You must download and run these locally to view. 
+- `gsdmm` directory was forked and holds all files and doucmentation needed to run STTM model 
 
 **Other Miscellaneous Files**
 - An example of the Twint scraper usage is located in the `twitter_scraper.ipynb` notebook 
 - `preprocessor.py` is script responsible for merging multiple csvs scraped into one
-- `clean_tokenizer.py` is script responsible for cleaning tweet data and tokenizing it
+- `notebooks/clean_tokenizer.py` is script responsible for cleaning tweet data and tokenizing it
