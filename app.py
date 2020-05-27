@@ -9,9 +9,9 @@ import plotly.graph_objects as go
 from dash.dependencies import Input, Output, State
 
 # Define styles and local images
-external_stylesheets = ['dashboard/assets/style.css']
-img_logo = 'dashboard/img/twitter_logo_blk.png'
-git_logo = 'dashboard/img/github_logo.png'
+external_stylesheets = ['assets/style.css']
+img_logo = 'img/twitter_logo_blk.png'
+git_logo = 'img/github_logo.png'
 encoded_image_twt = base64.b64encode(open(img_logo, 'rb').read())
 encoded_image_git = base64.b64encode(open(git_logo, 'rb').read())
 # Initialize the app
@@ -19,13 +19,13 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
 # Load data using number of topics as indices
-df = pd.read_pickle(r'dashboard/data/sttm_all_topics.pkl')
+df = pd.read_pickle(r'data/sttm_all_topics.pkl')
 
 # Load data for words in each topic and corresponding scores
-topic_words_df = pd.read_pickle(r'dashboard/data/topic_words.pkl')
+topic_words_df = pd.read_pickle(r'data/topic_words.pkl')
 
 # Load data for topic name descriptions
-topic_names_df = pd.read_pickle(r'dashboard/data/topic_names.pkl')
+topic_names_df = pd.read_pickle(r'data/topic_names.pkl')
 
 # Convert date to datetime
 df['date'] = pd.to_datetime(df['date'], errors='coerce')
@@ -150,7 +150,7 @@ news_sources = dfc['username'].unique()  # create list of new sources
 
 # Create pivot table of users vs topics
 user_topic_counts = pd.pivot_table(data=dfc,
-                                   values='tweet',
+                                   values='name',
                                    index='username',
                                    columns='dominant_topic',
                                    aggfunc='count',
@@ -164,7 +164,7 @@ user_topic_counts_ratio = user_topic_counts_ratio.drop(columns=['total_topics'])
 
 # Create pivot table of years vs topics
 year_topic_counts = pd.pivot_table(data=dfc,
-                                   values='tweet',
+                                   values='date',
                                    index='year',
                                    columns='dominant_topic',
                                    aggfunc='count',
@@ -676,7 +676,7 @@ def update_heatmap(selected_num_topics, selected_sources_values, selected_range_
     filtered_df = df[df.name.isin(selected_sources_values) & df.year.isin(years_range)]  # apply filters
 
     user_topic_counts = pd.pivot_table(data=filtered_df.loc[n_topics],
-                                       values='tweet',
+                                       values='name',
                                        index='username',
                                        columns='dominant_topic',
                                        aggfunc='count',
@@ -690,7 +690,7 @@ def update_heatmap(selected_num_topics, selected_sources_values, selected_range_
     user_topic_counts_ratio = user_topic_counts_ratio.drop(columns=['total_topics'])
 
     year_topic_counts = pd.pivot_table(data=filtered_df.loc[n_topics],
-                                       values='tweet',
+                                       values='date',
                                        index='year',
                                        columns='dominant_topic',
                                        aggfunc='count',

@@ -6,7 +6,7 @@ Script to pre-process and merge csvs into one single data-frame
 import glob
 import pandas as pd
 
-data_dir = 'data/'           # directory to hold all target input CSV files
+data_dir = 'data/'  # directory to hold all target input CSV files
 
 # Read in CSVs into merged data frame
 tweets_df = pd.concat([pd.read_csv(file) for file in glob.glob(data_dir+'*topics.csv')], ignore_index=True)
