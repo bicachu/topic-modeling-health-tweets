@@ -10,8 +10,8 @@ from dash.dependencies import Input, Output, State
 
 # Define styles and local images
 external_stylesheets = ['assets/style.css']
-img_logo = 'img/twitter_logo_blk.png'
-git_logo = 'img/github_logo.png'
+img_logo = 'assets/img/twitter_logo_blk.png'
+git_logo = 'assets/img/github_logo.png'
 encoded_image_twt = base64.b64encode(open(img_logo, 'rb').read())
 encoded_image_git = base64.b64encode(open(git_logo, 'rb').read())
 # Initialize the app
@@ -180,6 +180,27 @@ tab_selected_style = {
     'backgroundColor': '#31302F',
     'padding': '1px'
 }
+
+# Define Dash's HTML Index Template
+app.index_string = '''
+<!DOCTYPE html>
+<html>
+    <head>
+        {%metas%}
+        <title>Health Tweets Dashboard</title>
+        {%favicon%}
+        {%css%}
+    </head>
+    <body>
+        {%app_entry%}
+        <footer>
+            {%config%}
+            {%scripts%}
+            {%renderer%}
+        </footer>
+    </body>
+</html>
+'''
 
 # Define the app
 app.layout = html.Div(
@@ -412,12 +433,16 @@ app.layout = html.Div(
                                     ]
                                 )
                             ]),
-                        html.Div(className='div-for-bubble',
-                                 children=[
-                                     dcc.Graph(
-                                         id='bubble-plot',
-                                         figure=bubble_figure,
-                                     )])
+                        html.Div(
+                            dcc.Loading(
+                                id='bubble-load',
+                                color='rgb(66, 141, 252)',
+                                children=[
+                                    dcc.Graph(
+                                        id='bubble-plot',
+                                        figure=bubble_figure,
+                                    )],
+                                className='div-for-bubble'))
                     ]),
                 html.Div(
                     className='four-custom columns',
@@ -435,32 +460,36 @@ app.layout = html.Div(
                                                  selected_className='heatmap-tab--selected bg-lightgrey',
                                                  selected_style=tab_selected_style,
                                                  children=[
-                                                     html.Div(
-                                                         className='div-for-heatmaps',
+                                                     dcc.Loading(
                                                          id='heatmap-news',
+                                                         color='rgb(66, 141, 252)',
                                                          children=[
-                                                             dcc.Graph(
-                                                                 figure={
-                                                                     'data': [go.Heatmap(
-                                                                         x=user_topic_counts_ratio.columns.tolist(),
-                                                                         y=user_topic_counts_ratio.index.tolist(),
-                                                                         z=user_topic_counts_ratio.values.tolist(),
-                                                                         colorscale='YlGnBu',
-                                                                         colorbar=dict(
-                                                                             thickness=20,
-                                                                             xpad=5))],
-                                                                     'layout': go.Layout(
-                                                                         autosize=True,
-                                                                         margin=dict(l=106, r=0, b=50, t=10, pad=2),
-                                                                         xaxis=dict(
-                                                                             tickangle=-30,
-                                                                             tickcolor='#FFFFFF'),
-                                                                         yaxis=dict(
-                                                                             tickcolor='#FFFFFF'),
-                                                                         font=dict(color='white'),
-                                                                         paper_bgcolor='rgba(0,0,0,0)',
-                                                                         plot_bgcolor='rgba(0,0,0,0)',
-                                                                     )}
+                                                             html.Div(
+                                                                 dcc.Graph(
+                                                                     figure={
+                                                                         'data': [go.Heatmap(
+                                                                             x=user_topic_counts_ratio.columns.tolist(),
+                                                                             y=user_topic_counts_ratio.index.tolist(),
+                                                                             z=user_topic_counts_ratio.values.tolist(),
+                                                                             colorscale='YlGnBu',
+                                                                             colorbar=dict(
+                                                                                 thickness=20,
+                                                                                 xpad=5))],
+                                                                         'layout': go.Layout(
+                                                                             autosize=True,
+                                                                             margin=dict(l=106, r=0, b=50, t=10,
+                                                                                         pad=2),
+                                                                             xaxis=dict(
+                                                                                 tickangle=-30,
+                                                                                 tickcolor='#FFFFFF'),
+                                                                             yaxis=dict(
+                                                                                 tickcolor='#FFFFFF'),
+                                                                             font=dict(color='white'),
+                                                                             paper_bgcolor='rgba(0,0,0,0)',
+                                                                             plot_bgcolor='rgba(0,0,0,0)',
+                                                                         )}
+                                                                 ),
+                                                                 className='div-for-heatmaps'
                                                              )
                                                          ])
                                                  ]),
@@ -470,54 +499,58 @@ app.layout = html.Div(
                                                  selected_className='heatmap-tab--selected bg-lightgrey',
                                                  selected_style=tab_selected_style,
                                                  children=[
-                                                     html.Div(
-                                                         className='div-for-heatmaps',
+                                                     dcc.Loading(
                                                          id='heatmap-years',
+                                                         color='rgb(66, 141, 252)',
                                                          children=[
-                                                             dcc.Graph(
-                                                                 figure={
-                                                                     'data': [go.Heatmap(
-                                                                         x=year_topic_counts.columns.tolist(),
-                                                                         y=year_topic_counts.index.tolist(),
-                                                                         z=year_topic_counts.values.tolist(),
-                                                                         colorscale='YlGnBu',
-                                                                         colorbar=dict(
-                                                                             thickness=20,
-                                                                             xpad=5))],
-                                                                     'layout': go.Layout(
-                                                                         xaxis=dict(
-                                                                             tickangle=-30,
-                                                                             tickcolor='#FFFFFF'),
-                                                                         yaxis=dict(
-                                                                             type='category',
-                                                                             tickcolor='#FFFFFF',
-                                                                             tickmode='array',
-                                                                             tickvals=year_topic_counts.index.tolist(),
-                                                                             ticktext=year_topic_counts.index.tolist(),
-                                                                             autorange='reversed'),
-                                                                         autosize=True,
-                                                                         margin=dict(l=104, r=0, b=50, t=10, pad=2),
-                                                                         font=dict(color='#FFFFFF'),
-                                                                         paper_bgcolor='rgba(0,0,0,0)',
-                                                                         plot_bgcolor='rgba(0,0,0,0)',
-                                                                     )}
+                                                             html.Div(
+                                                                 dcc.Graph(
+                                                                     figure={
+                                                                         'data': [go.Heatmap(
+                                                                             x=year_topic_counts.columns.tolist(),
+                                                                             y=year_topic_counts.index.tolist(),
+                                                                             z=year_topic_counts.values.tolist(),
+                                                                             colorscale='YlGnBu',
+                                                                             colorbar=dict(
+                                                                                 thickness=20,
+                                                                                 xpad=5))],
+                                                                         'layout': go.Layout(
+                                                                             xaxis=dict(
+                                                                                 tickangle=-30,
+                                                                                 tickcolor='#FFFFFF'),
+                                                                             yaxis=dict(
+                                                                                 type='category',
+                                                                                 tickcolor='#FFFFFF',
+                                                                                 tickmode='array',
+                                                                                 tickvals=year_topic_counts.index.tolist(),
+                                                                                 ticktext=year_topic_counts.index.tolist(),
+                                                                                 autorange='reversed'),
+                                                                             autosize=True,
+                                                                             margin=dict(l=104, r=0, b=50, t=10,
+                                                                                         pad=2),
+                                                                             font=dict(color='#FFFFFF'),
+                                                                             paper_bgcolor='rgba(0,0,0,0)',
+                                                                             plot_bgcolor='rgba(0,0,0,0)',
+                                                                         )}
+                                                                 ),
+                                                                 className='div-for-heatmaps'
                                                              )
                                                          ])
                                                  ])
                                          ])
                                  ])
-                    ])
-            ]),
-        html.Div(
-            id='hidden-div',  # Hidden div to store global variable for traces visibility
-            style={'display': 'none'},
-            children=[
-                dcc.Store(
-                    id='topic-trace-list',
-                    data=global_trace_visibilities
+                    ]),
+                html.Div(
+                    id='hidden-div',  # Hidden div to store global variable for traces visibility
+                    style={'display': 'none'},
+                    children=[
+                        dcc.Store(
+                            id='topic-trace-list',
+                            data=global_trace_visibilities
+                        )
+                    ]
                 )
-            ]
-        )
+            ])
     ])
 
 
