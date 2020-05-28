@@ -523,7 +523,7 @@ caption{
   border-radius: 5px;
 }
 .nav-content{
-    height: 60vh;
+    height: 65vh;
     overflow-y: scroll;
     padding: 5px;
     border-radius: 0 0 5px 5px;
@@ -563,7 +563,6 @@ caption{
   color: #E4E4E4;
   padding: 5px 5px 12px 12px;
   border-radius: 5px;
-
 }
 .div-for-slider {
   width: 97%;

@@ -441,8 +441,8 @@ app.layout = html.Div(
                                     dcc.Graph(
                                         id='bubble-plot',
                                         figure=bubble_figure,
-                                    )],
-                                className='div-for-bubble'))
+                                    )]),
+                            className='div-for-bubble')
                     ]),
                 html.Div(
                     className='four-custom columns',
