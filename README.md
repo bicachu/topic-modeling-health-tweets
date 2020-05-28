@@ -3,7 +3,7 @@
 This project explores health-related tweets using machine learning techniques such as topic modeling, clustering, and sentiment analysis. It covers tweets scraped from January 1, 2014 - March 28, 2020 from 14 various health-specific news twitter accounts (i.e @cnnhealth, @foxnewshealth, @harvardhealth, etc). The project was completed in Python and there and an interactive dashboard was created using a Dash - Python framework developed by [Plotly](https://plot.ly/dash). 
 * The dashboard was deployed on Heroku here: https://health-tweets-topics.herokuapp.com/
 
-## Using the demo
+## Using the dashboard
 To get started, choose the preset number of topics you would like to explore to refresh the dashboard's current model results. Then, you can start interacting with each topic words distribution in the bubble chart as well as the distribution of those topics across news sources and years with the heatmap.
 
 ![demo](assets/img/sttm_dashboard_demo.gif)
