@@ -6,7 +6,7 @@ This project explores health-related tweets using machine learning techniques su
 ## Using the demo
 To get started, choose the preset number of topics you would like to explore to refresh the dashboard's current model results. Then, you can start interacting with each topic words distribution in the bubble chart as well as the distribution of those topics across news sources and years with the heatmap.
 
-![demo](img/sttm_dashboard_demo.gif)
+![demo](assets/img/sttm_dashboard_demo.gif)
 
 ## Data Overview
 ### Data Scraping & Cleaning
