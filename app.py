@@ -105,7 +105,7 @@ for topic_num in topic_words_dfc.topic_num.values:
         trace_default_visibilities.append('legendonly')
 
     bubble_figure.add_trace(go.Scatter(
-        name='Topic ' + (str(topic_num + 1)),
+        name=str(topic_num + 1),
         x=filtered_df.iloc[0]['doc_count'][0:5],
         y=filtered_df.iloc[0]['word_importance'][0:5],
         mode='markers+text',
@@ -130,7 +130,9 @@ for topic_num in topic_words_dfc.topic_num.values:
         yaxis=dict(title='Word Importance',
                    showgrid=False),
         font=dict(color='white'),
-        legend=dict(itemsizing='constant'),
+        legend=dict(
+            itemsizing='constant',
+            title=dict(text='   Topic #')),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)'
     )
@@ -173,7 +175,6 @@ year_topic_counts.columns = ['Topic {}'.format(i) for i in range(1, n_topics + 1
 
 nav_tab_selected_style = {
     'backgroundColor': '#434140',
-    # 'color': '#FFFFFF',
     'padding': '1px'
 }
 tab_selected_style = {
@@ -304,13 +305,13 @@ app.layout = html.Div(
                                                                  'For each topic, the top 5 words can be viewed in the '
                                                                  'bubble chart. The tweet count represents the number '
                                                                  'of tweets that the word appears in and the word '
-                                                                 'importance represents to how strongly connected '
-                                                                 'that word is to the respective topic. The size of '
-                                                                 'the bubbles increase relative to one another as the '
-                                                                 'number of other topics in that model share the same '
-                                                                 'word in their top ten words. Therefore, words with '
-                                                                 'smaller bubble diameters are more reflective and '
-                                                                 'highly specific to that particular topic. '
+                                                                 'importance represents its proportion within the '
+                                                                 'topic. The size of the bubbles increase relative to '
+                                                                 'one another as the number of other topics in that '
+                                                                 'model share the same word in their top ten words. '
+                                                                 'Therefore, words with smaller bubble diameters are '
+                                                                 'more reflective and highly specific to that '
+                                                                 'particular topic. '
                                                              ),
                                                              html.P(
                                                                  'The sources heatmap represents the proportion of '
@@ -572,7 +573,7 @@ def update_bubble_plot(selected_num_topics):
             trace_default_visibilities.append('legendonly')
 
         bubble_figure.add_trace(go.Scatter(
-            name='Topic ' + (str(topic_num + 1)),
+            name=str(topic_num + 1),
             x=filtered_df.iloc[0]['doc_count'][0:5],
             y=filtered_df.iloc[0]['word_importance'][0:5],
             mode='markers+text',
@@ -600,7 +601,9 @@ def update_bubble_plot(selected_num_topics):
                        showgrid=False,
                        zeroline=False),
             font=dict(color='white'),
-            legend=dict(itemsizing='constant'),
+            legend=dict(
+                itemsizing='constant',
+                title=dict(text='   Topic #')),
             paper_bgcolor='rgba(0,0,0,0)',
             plot_bgcolor='rgba(0,0,0,0)'
         )
