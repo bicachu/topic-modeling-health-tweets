@@ -43,7 +43,7 @@ For LDA modeling, both [sklearn](https://scikit-learn.org/stable/modules/generat
 To better handle short texts such as tweets, the [GSDMM model](https://github.com/rwalk/gsdmm) was used which was built based on the [original research paper](http://dbgroup.cs.tsinghua.edu.cn/wangjy/papers/KDD14-GSDMM.pdf) on short-term text modeling (STTM) by Jianhua Yin and Jianyong Wang from Tsinghua University GSDMM is a dirichilet mixture model that assumes each document in a corpus belongs to one topic as compared to simple LDA and it often helps reduce overlap and increase precision for documents like tweets with less than 50 words. *Note: only results from STTM model were used in the interactive dashboard*
 
 ### Sentiment Analysis
-Sentiment Analysis was performed using NLP modules from [TextBlob](https://textblob.readthedocs.io/en/dev/quickstart.html#sentiment-analysis). Specifically, each tweet wwas analyzed and scored on two measures as such:
+Sentiment Analysis was performed using NLP modules from [TextBlob](https://textblob.readthedocs.io/en/dev/quickstart.html#sentiment-analysis). Specifically, each tweet was analyzed and scored on two measures as such:
 1. **Polarity**: The polarity is a value within the range [-1.0, 1.0] where -1.0 has very negative sentiment and 1.0 has very postive sentiment.
 2. **Subjectivity**: The subjectivity is a value within the range [0.0, 1.0] where 0.0 is very objective and 1.0 is very subjective.
 
