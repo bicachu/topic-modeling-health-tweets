@@ -63,3 +63,6 @@ Sentiment Analysis was performed using NLP modules from [TextBlob](https://textb
 - An example of the Twint scraper usage is located in the `twitter_scraper.ipynb` notebook 
 - `preprocessor.py` is script responsible for merging multiple csvs scraped into one
 - `notebooks/clean_tokenizer.py` is script responsible for cleaning tweet data and tokenizing it
+
+## Other Resources
+For a more detailed walkthrough of applying STTM to your own set of data - check out my [tutorial repository](https://github.com/bicachu/short-text-topic-modeling-tutorial) as well as the [series of articles/blog posts](https://medium.com/towards-artificial-intelligence/tweet-topic-modeling-using-twint-to-scrape-tweets-part-1-a9274e5199d2) I published.
